@@ -1,10 +1,19 @@
 # Run this program by using the following terminal command: "python tennis.py"
 
+# Import sys to allow program termination by user
+import sys
+
+
 def print_scoreline():
     # Request user input for the current scoreline in the specified format
     scoreline_numeric = input(
         'Scoreline in no. of points (score_player1 - score_player2): '
     )
+
+    # Process the request to terminate the program
+    if scoreline_numeric.lower() == "exit":
+        print("Exiting program.")
+        sys.exit()
 
     try:
         # If possible, extract the numerical scores from the user input
@@ -13,12 +22,7 @@ def print_scoreline():
         ]
 
         # Dictionary of score names based on the numerical value
-        score_names = {
-            0: 'Love',
-            1: 'Fifteen',
-            2: 'Thirty',
-            3: 'Forty',
-        }
+        score_names = {0: 'Love', 1: 'Fifteen', 2: 'Thirty',  3: 'Forty'}
 
         # Check if the scoreline results in a Deuce
         if score_player1 == score_player2 and score_player1 >= 3:
@@ -29,12 +33,11 @@ def print_scoreline():
 
             # Check if the scores are equal ("x-all")
             if score_player1 == score_player2:
-                scoreline = '%s-all' % score_names[score_player1]
+                scoreline = f'{score_names[score_player1]}-all'
 
             # Otherwise, obtain the full scoreline
             else:
-                scoreline = '%s-%s' % (score_names[score_player1],
-                                       score_names[score_player2])
+                scoreline = f'{score_names[score_player1]}-{score_names[score_player2]}'
 
         # Check for the remaining cases
         else:
@@ -47,11 +50,11 @@ def print_scoreline():
 
             # Check for an advantage condition of the player ahead
             if score_diff == 1:
-                scoreline = 'Advantage for player%d' % player_ahead
+                scoreline = f'Advantage for player{player_ahead}'
 
             # Check for a win condition of the player ahead
             elif max(score_player1, score_player2) == 4 or score_diff == 2:
-                scoreline = 'Win for player%d' % player_ahead
+                scoreline = f'Win for player{player_ahead}'
 
             # Otherwise, the scoreline is invalid
             else:
@@ -60,13 +63,16 @@ def print_scoreline():
         # Print the scoreline
         print(scoreline)
 
-    except:
+    except ValueError:
         # Restart the program if the user input is invalid
         print('Please only insert non-negative integers in the correct format.')
-        pass
 
 
 if __name__ == '__main__':
+    print('Type "exit" to terminate the program.')
+    print()
+
     # Run the program until the user terminates
     while True:
         print_scoreline()
+        print()

@@ -24,7 +24,7 @@ def print_scoreline():
         if score_player1 == score_player2 and score_player1 >= 3:
             scoreline = 'Deuce'
 
-        # Check if the scoreline results a named score based on score_names
+        # Check if the scoreline results in a named score based on score_names
         elif (score_player1 <= 3) and (score_player2 <= 3):
 
             # Check if the scores are equal ("x-all")
